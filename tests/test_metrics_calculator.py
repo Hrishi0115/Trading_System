@@ -30,5 +30,9 @@ class TestMetricsCalculator(unittest.TestCase):
         max_drawdown = self.metrics.calculate_max_drawdown(self.portfolio)
         self.assertIsInstance(max_drawdown, float, "Max drawdown should be a float")
 
+    def test_calculate_all_metrics(self):
+        all_metrics = self.metrics.calculate_all_metrics(self.portfolio)
+        self.assertIsInstance(all_metrics, dict, "All metrics should be a dictionary")
+
 if __name__ == "__main__":
     unittest.main()

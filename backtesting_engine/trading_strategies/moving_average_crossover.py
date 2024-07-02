@@ -55,20 +55,10 @@ class MovingAverageCrossoverStrategy(Strategy):
         # 1,1,1,1,0,0,... -> short is higher than low until value 5
         # positions = [NaN, 0, 0, 0, -1, 0] -> -1 is a SELL
 
+        # checking if first signal is sell - if it is ignore
+        first_signal_index = signals['positions'][signals['positions'] != 0].first_valid_index()
+        if first_signal_index is not None and signals.at[first_signal_index, 'positions'] == -1.0:
+            signals.at[first_signal_index, 'positions'] = 0.0
+
         return signals
-        
-# The current implementation of the strategy with basic risk management and order sizing is primarily for testing the backtesting engine. The focus here is to ensure that
-# the backtesting engine can handle the basic workflow of loading data, generating signals, simulating trades, and tracking the portfolio.
-
-# Future Enhancements in the Strategy Editor
-# When developing the strategy editor, we can introduce much more sophisticated methods for risk management and order sizing including:
-# Advanced Position Sizing:
-# 1. Fixed Fractional Method: Allocate a fixed percentage of the total capital to each trade.
-# 2. Volatility-Based Position Sizing: Adjust position sizes based on the volatility of the asset.
-# 3. Kelly Criterion: A formula to determine the optimal size of a series of bets to maximize the logarithm of wealth.
-# 4. Value-at-Risk (VaR): Allocate capital based on the value-at-risk for each trade, limiting the potential loss to a certain threshold.
-
-# Advanced Risk Management:
-# 1. Dynamic Stop-Loss and Take-Profit: Adjust stop-loss and take-profit levels based on market conditions.
-# 2. Trailing Stop-Loss: A stop-loss order that moves with the price to lock in profits while limiting losses.
-# 3. Portfolio-Level Risk Management: Methods to manage overall portfolio risk, such as maximum drawdown limits, diversification rules, and rebalancing strategies.
+    

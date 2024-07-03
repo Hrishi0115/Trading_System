@@ -41,6 +41,25 @@ class Visualizer:
         plt.grid(True)
         plt.show()
 
+    def plot_orders(self, portfolio: pd.DataFrame):
+        orders = portfolio[['price_per_share','order']][portfolio['order'].notna()]
+        plt.figure(figsize=(14,7))
+        plt.plot(portfolio.index, portfolio['price_per_share'], color='black')
+        
+        # plot buy order
+        buy_orders = orders[orders['order'] == 'buy']
+        plt.plot(buy_orders.index, buy_orders['price_per_share'], '^', markersize=10, color='g', label='Buy Signal', lw=0)
+
+        # plot sell order
+        sell_orders = orders[orders['order'] == 'sell']
+        plt.plot(sell_orders.index, sell_orders['price_per_share'], 'v', markersize=10, color='r', label='Sell Signal', lw=0)
+
+        plt.xlabel('Date')
+        plt.ylabel('Price')
+        plt.title('Price and Buy/Sell Orders')
+        plt.legend()
+        plt.show()
+
     def all_visualizations(self, portfolio: pd.DataFrame, signals: pd.DataFrame):
         methods = inspect.getmembers(self, predicate=inspect.ismethod)
         plot_methods = [method for name, method in methods if name.startswith('plot_')]
@@ -62,7 +81,7 @@ class Visualizer:
 if __name__ == "__main__":
     from data_loader import YahooFinanceLoader
     from trading_strategies.moving_average_crossover import MovingAverageCrossoverStrategy
-    from simulation_engine import SimulationEngine
+    from backtesting_engine.simulation_engine import SimulationEngine
 
     loader = YahooFinanceLoader()
     data = loader.load_data('AAPL', '2020-01-01', '2024-07-01')

@@ -121,7 +121,7 @@ An overview of the complete system and how each component interacts:
 - Signal Generator uses live data to generate buy/sell signals
 - Trade Executor executes trades in real-time based on signals
 
-## Example Classes & Methods
+<!-- ## Example Classes & Methods
 1. Strategy Editor
 ```python
 class StrategyEditor:
@@ -187,6 +187,6 @@ class LiveDataLoader:
     # fetches live data
     def fetch_data(symbol: str):
         # would also have to specify timeframe - how often data is being fetched
-```
+``` -->
 
 

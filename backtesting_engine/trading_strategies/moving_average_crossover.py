@@ -3,6 +3,9 @@ import numpy as np
 from .base_strategy import Strategy
 
 class MovingAverageCrossoverStrategy(Strategy):
+    """
+    Simple Moving Average Crossover strategy for managing long positions, i.e. identifying trends to buy and subsequently selling the asset once the trend reverses.
+    """
     def __init__(self, short_window: int, long_window: int):
         self.short_window = short_window
         self.long_window = long_window

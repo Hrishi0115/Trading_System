@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from utility import get_risk_free_rate
+from backtesting_engine.utility import get_risk_free_rate
 
 class MetricsCalculator:
     def __init__(self, risk_free_rate: float = get_risk_free_rate(), periods_per_year: int = 252):

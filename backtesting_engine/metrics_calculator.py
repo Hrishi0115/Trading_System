@@ -49,7 +49,8 @@ class MetricsCalculator:
             "cagr": self.calculate_cagr(portfolio),
             "volatility": self.calculate_volatility(portfolio),
             "sharpe_ratio": self.calculate_sharpe_ratio(portfolio),
-            "max_drawdown": self.calculate_max_drawdown(portfolio)
+            "max_drawdown": self.calculate_max_drawdown(portfolio),
+            "value": portfolio['total'].iloc[-1]
         }
         return metrics
     

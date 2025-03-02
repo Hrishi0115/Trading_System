@@ -10,17 +10,17 @@ class Visualizer:
     def __init__(self):
         pass
 
-    def plot_portfolio_value(self, portfolio: pd.DataFrame):
+    def plot_portfolio_value(self, portfolio: pd.DataFrame, symbol):
         plt.figure(figsize=(14, 7))
         plt.plot(portfolio.index, portfolio['total'], label='Portfolio Total')
         plt.xlabel('Date')
         plt.ylabel('Total Value')
-        plt.title('Portfolio Total Value Over Time')
+        plt.title(f'{symbol}: Portfolio Total Value Over Time')
         plt.legend()
         plt.grid(True)
         plt.show()
 
-    def plot_signals(self, signals: pd.DataFrame):
+    def plot_signals(self, signals: pd.DataFrame, symbol):
         plt.figure(figsize=(14, 7))
         plt.plot(signals.index, signals['price'], color='black')
         plt.plot(signals.index, signals['short_mavg'], label='Short-term SMA', color='blue')
@@ -36,12 +36,12 @@ class Visualizer:
 
         plt.xlabel('Date')
         plt.ylabel('Price')
-        plt.title('Price and Buy/Sell Signals')
+        plt.title(f'{symbol}: Price and Buy/Sell Signals')
         plt.legend()
         plt.grid(True)
         plt.show()
 
-    def plot_orders(self, portfolio: pd.DataFrame):
+    def plot_orders(self, portfolio: pd.DataFrame, symbol):
         orders = portfolio[['price_per_share','order']][portfolio['order'].notna()]
         plt.figure(figsize=(14,7))
         plt.plot(portfolio.index, portfolio['price_per_share'], color='black')
@@ -56,20 +56,20 @@ class Visualizer:
 
         plt.xlabel('Date')
         plt.ylabel('Price')
-        plt.title('Price and Buy/Sell Orders')
+        plt.title(f'{symbol}: Price and Buy/Sell Orders')
         plt.legend()
         plt.show()
 
-    def all_visualizations(self, portfolio: pd.DataFrame, signals: pd.DataFrame):
+    def all_visualizations(self, portfolio: pd.DataFrame, signals: pd.DataFrame, symbol):
         methods = inspect.getmembers(self, predicate=inspect.ismethod)
         plot_methods = [method for name, method in methods if name.startswith('plot_')]
         for plot_method in plot_methods:
             # Check the method signature to determine the appropriate argument
             sig = inspect.signature(plot_method)
             if 'portfolio' in sig.parameters:
-                plot_method(portfolio)
+                plot_method(portfolio, symbol)
             elif 'signals' in sig.parameters:
-                plot_method(signals)
+                plot_method(signals, symbol)
 
         # alternatively
         # self.plot_portfolio_value(portfolio)

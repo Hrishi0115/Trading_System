@@ -31,7 +31,7 @@ class MovingAverageCrossoverStrategy(Strategy):
 
         # Initialize the `signal` column with 0.0 - this column is used to store the trading signals
 
-        signals['signal'] = 0.0
+        #signals['signal'] = 0.0 - unneccessary
 
         # Generate buy/sell signals based on the crossover
 
@@ -49,6 +49,8 @@ class MovingAverageCrossoverStrategy(Strategy):
 
         signals['positions'] = signals['signal'].diff()
         
+        # SHOULD REALLY RENAME COLUMNS - SIGNALS SHOULD BE BUY OR SELL - CURRENTLY IT IS A UTILITY COLUMN WHICH IS USED TO CALCULATE A BULL OR SELL WHICH IS ACTUALLY POSITIONS
+
         # create positions based on the signals
         # positions column is created by taking the difference of the signal column
         # diff() compares value i to value i - 1, therefore for first value, diff is NaN
@@ -57,6 +59,9 @@ class MovingAverageCrossoverStrategy(Strategy):
         # on the other hand
         # 1,1,1,1,0,0,... -> short is higher than low until value 5
         # positions = [NaN, 0, 0, 0, -1, 0] -> -1 is a SELL
+
+        # SO WE BE EITHER LONG OR SHORT AND NOT JUST BE CLEARING HOLDS? - a lot of the portfolio we are just waiting to enter a position - should be either LONG OR SHORT FOR
+        # MAXIMUM PROFIT - EVEN THOUGH IT INCREASES RISK
 
         # checking if first signal is sell - if it is ignore
         first_signal_index = signals['positions'][signals['positions'] != 0].first_valid_index()

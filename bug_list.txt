@@ -1,0 +1,4 @@
+- Why is there a sell signal at the very start for NVDA
+
+When we see a SELL before a buy are we entering a short position?
+

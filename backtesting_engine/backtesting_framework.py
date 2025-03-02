@@ -41,7 +41,7 @@ class BacktestingFramework:
         metrics = self.metrics_calculator.calculate_all_metrics(portfolio)
 
         # Step 5: Visualize results
-        self.visualizer.all_visualizations(portfolio, signals)
+        self.visualizer.all_visualizations(portfolio, signals, symbol)
 
         return metrics
 
@@ -62,8 +62,13 @@ if __name__ == "__main__":
     # separate order sizing from engine to strategy?
     
     # Run the backtest
-    backtest = framework.run_backtest("AAPL", "2020-01-01", "2024-01-01")
-    print(backtest)
+    # stocks = ["AAPL", "MSFT", "NVDA", "JPM"]
+    stocks = ["AAPL"]
+    # start = "2020-01-01"
+    # end = "2024-01-01"
+    for s in stocks:
+        backtest = framework.run_backtest(s, "2020-01-01","2024-01-01")
+        print(backtest)
 
 # Improvements
 # Order Sizing:
